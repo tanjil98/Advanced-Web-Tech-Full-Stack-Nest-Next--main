@@ -1,0 +1,38 @@
+import { Repository } from 'typeorm';
+import { AdminEntity } from "./entities/admin.entity";
+import { AdminDTO, AdminLoginDTO, AdminUpdateDTO } from "./dto/create-admin.dto";
+import { MailerService } from "@nestjs-modules/mailer/dist";
+import { ManagerEntity } from "src/manager/manager.entity";
+import { ManagerDTO, ManagerUpdateDTO } from "src/manager/manager.dto";
+import { AdminProfile } from "./entities/adminprofile.entity";
+export declare class AdminService {
+    private adminRepo;
+    private managerRepo;
+    private adminprofileRepo;
+    private mailerService;
+    constructor(adminRepo: Repository<AdminEntity>, managerRepo: Repository<ManagerEntity>, adminprofileRepo: Repository<AdminProfile>, mailerService: MailerService);
+    getIndex(): Promise<AdminEntity[]>;
+    getAllAdmin(): Promise<AdminEntity[]>;
+    getAllManagers(): Promise<ManagerEntity[]>;
+    getAdminByEmail(email: string): Promise<AdminEntity>;
+    getAdminByID(id: any): Promise<AdminEntity>;
+    getManagerByID(id: any): Promise<ManagerEntity>;
+    getAdminbyIDAndName(id: any, name: any): Promise<AdminEntity>;
+    addAdmin(mydto: any): Promise<any>;
+    createAdmin(user: AdminEntity, userProfile: AdminProfile): Promise<AdminEntity>;
+    updateAdmin(email: string, data: AdminUpdateDTO): Promise<AdminEntity>;
+    updateAdminById(id: number, data: AdminUpdateDTO): Promise<AdminEntity>;
+    updateManagerById(id: number, data: ManagerUpdateDTO): Promise<ManagerEntity>;
+    deleteAdminByID(id: any): any;
+    deleteManagerByID(id: any): any;
+    deleteUser(id: number): Promise<AdminEntity[]>;
+    addManager(manager: any): Promise<ManagerEntity>;
+    insertManager(mydto: ManagerDTO): any;
+    getAdminByManagerID(id: any): any;
+    getManagersByAdminID(id: any): any;
+    getAllManagerswithadmin(): Promise<ManagerEntity[]>;
+    signup(data: AdminDTO): Promise<AdminEntity>;
+    getimagebyadminid(adminid: number): Promise<string>;
+    signin(mydto: AdminLoginDTO): Promise<boolean>;
+    sendMail(): void;
+}
